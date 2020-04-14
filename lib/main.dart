@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Speech to Text',
       theme: themeData,
       home: VoiceHome(),
@@ -47,19 +48,63 @@ class MyApp extends StatelessWidget {
 
        _speechRecognition.activate().then((res) => setState(() => _isAvailable = res));
 
-
      }
 
-
+// diseño de interfaz
     @override
     Widget build(BuildContext context) {
-      return Container(
-        
+      return Scaffold(
+          appBar: AppBar(
+          title: Text('Speech to Text'),
+          ),
+          body: Column(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text('Aquí vera su resultado.',
+                    style: TextStyle(fontSize: 22),),
+                  )
+                ],
+              ),
+              Column(
+                 mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        FloatingActionButton(                          
+                                  mini: true,
+                                  backgroundColor: Colors.deepOrange,
+                                  child: Icon(Icons.delete_forever),
+                                  onPressed: (){},                            
+                                ),
+                                FloatingActionButton(
+                                  child: Icon(Icons.mic),
+                                  onPressed: (){},
+                                ),
+                                FloatingActionButton(
+                                  mini: true,
+                                  backgroundColor: Colors.deepPurpleAccent,
+                                  child: Icon(Icons.stop),
+                                  onPressed: (){},
+                                )
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          )
       );
     }
 
  
-  
+  // metodos
   void onSpeechAvailability(bool result) => setState(() => _isAvailable = result);
 
   void onRecognitionStarted() => setState(() => _isListening = true);//aui el microfono esta escuchando
